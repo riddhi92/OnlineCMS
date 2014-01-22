@@ -11,9 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import db.DBConnection;
 
-/**
- * Servlet implementation class StudentDetailsHandler1
- */
 @WebServlet("/StudentDetailsHandler")
 public class StudentDetailsHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +28,7 @@ public class StudentDetailsHandler extends HttpServlet {
 		String state=request.getParameter("state");
 		
 		HttpSession session=request.getSession();
+		session.setAttribute("newPwd", newPwd);
 		int sid = (Integer)session.getAttribute("sId");
 		int flg=DBConnection.updateStudentDetails(sid, fname, lname, newPwd, dob, email, mobile, address, city, state);
 		if(flg==1)

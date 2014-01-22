@@ -21,11 +21,9 @@ function closeDiv()
 %>
 <%
 
-Boolean validateResult=(Boolean)session.getAttribute("s");
-if(validateResult !=null && validateResult==true)
-{
+Boolean validateResult=(Boolean)session.getAttribute("login_success");
+if(validateResult==null){
 	response.sendRedirect("admin_login.jsp?s=false");
-	
 }
 String admin_name=(String)session.getAttribute("admin_name");
 String reg=request.getParameter("status");

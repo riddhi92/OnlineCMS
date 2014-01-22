@@ -106,64 +106,25 @@ function check()
   </div><!-- /.navbar-collapse -->
 </nav>
 
-  <div style="margin:150px auto; width:400px;"> 
+  <div style="margin:0px auto;margin-left:100px; width:810px;"> 
   <ul class="nav nav-tabs" id="myTab" style=" width:400px; border:0px solid;">
-  <li class="active" style=" width:200px;"><a href="#home" data-toggle="tab" style="color:#000;">Student Login</a></li>
-  <li style=" width:200px;"><a href="#profile" data-toggle="tab" style="color:#000;">Teacher Login</a></li>
+  <li class="active" style=" width:200px;"><a href="#home" data-toggle="tab" style="color:#000;">Add Questions</a></li>
+  <li style=" width:200px;"><a href="#profile" data-toggle="tab" style="color:#000;">Edit Questions</a></li>
   </ul>
   
-<div class="tab-content" style="border:1px solid #ddd;width:400px;  border-radius:5px;">
-	<div class="tab-pane fade in active" id="home" style="width:350px; height:211px; margin:0px auto;  margin-left:37px;" >
+<div class="tab-content" style="border:1px solid #ddd;width:810px;  border-radius:5px;">
+	<div class="tab-pane fade in active" id="home" style="width:810px; height:211px; margin:0px auto;  margin-left:0px;" >
 		<div style="position: absolute; color: #ff0000; text-align: center; width: 330px; font-weight: bold;"><%=msg1 %></div>
-		<div id="back2" style="position:absolute; box-shadow: 0px 0px 20px #222222; width:350px; height:211px; margin:-15px;opacity:0.7; background-color:#cfcfcf; padding:0px; z-index:-1; border-radius:10px;  "></div> 
-		<div style=" background:url('images/admin_login.gif'); background-size:150px 50px; background-repeat:no-repeat; height:50px; max-height:70px; border-radius:30px; max-width:200px; margin-top:30px;margin-left:-1px "></div>
-		<form action="StudentLoginController" method="post">
-			<div class="input-group"  style="width:310px; margin:10px;">
-				  <span class="input-group-addon"><div style="background-image: url('images/user_icon.png'); background-size: 20px 20px; height: 20px; width: 20px;"></div></span>
-				  <input type="text" class="form-control" placeholder="Student Id" name="uname">
-				  <span class="input-group-addon"><div style="background-image: url('images/quest.png'); background-size: 20px 20px; height: 20px; width: 20px;"></div></span>
-			</div>
-
-			<div class="input-group" style="width:310px; margin:10px;">
-				<span class="input-group-addon" ><div style="background-image: url('images/pwd_icon.png'); background-size: 20px 20px; height: 20px; width: 20px;"></div></span>
-				<input type="password" class="form-control" placeholder="Password" name="pwd">
-				<span class="input-group-addon" ><div style="background-image: url('images/quest.png'); background-size: 20px 20px; height: 20px; width: 20px;"></div></span>
-			 
-			</div>
-
-			<div style="text-align:right; width:310px;">
-				<div>
-					<div><input type="submit"  class="btn btn-info" value="submit" /></div>
-				</div>
-			</div>
-		</form>
+		
+		
 	</div>
 	
 	
-	<div class="tab-pane fade" id="profile" style="width:350px; height:211px; margin:10px auto; margin-left:35px;">
+	<div class="tab-pane fade" id="profile" style="width:810px; height:211px;  margin-left:0px;">
 		<div style="position: absolute; color: #ff0000; text-align: center; width: 330px; font-weight: bold;"><%=msg %></div>
-		<div id="back2" style="position:absolute;box-shadow: 0px 0px 20px #222222; width:350px; height:211px; margin:-10px; opacity:0.7; background-color:#cfcfcf; padding:0px; z-index:-1; border-radius:10px;  "></div> 
-		<div style=" background:url('images/admin_login.gif'); background-size:150px 50px; background-repeat:no-repeat; height:50px; max-height:70px; border-radius:30px; max-width:200px; margin-top:30px;margin-left:-1px "></div>
-		<form action="TeacherLoginController" method="post">
-			<div class="input-group"  style="width:310px; margin:10px;">
-			    <span class="input-group-addon"><div style="background-image: url('images/user_icon.png'); background-size: 20px 20px; height: 20px; width: 20px;"></div></span>
-		   	    <input type="text" class="form-control" placeholder="Teacher Id" name="uname">
-				<span class="input-group-addon"><div style="background-image: url('images/quest.png'); background-size: 20px 20px; height: 20px; width: 20px;"></div></span>
-			</div>
-
-			<div class="input-group" style="width:310px; margin:10px;">
-				<span class="input-group-addon" ><div style="background-image: url('images/pwd_icon.png'); background-size: 20px 20px; height: 20px; width: 20px;"></div></span>
-				<input type="password" class="form-control" placeholder="Password" name="pwd">
-				<span class="input-group-addon" ><div style="background-image: url('images/quest.png'); background-size: 20px 20px; height: 20px; width: 20px;"></div></span>
-				 
-			</div>
-
-			<div style="text-align:right; width:310px;">
-				<div>
-					<div><input type="submit"  class="btn btn-info" value="submit" /></div>
-				</div>
-			</div>
-		</form>
+		
+		
+		
 	</div>
 </div>
 </div>

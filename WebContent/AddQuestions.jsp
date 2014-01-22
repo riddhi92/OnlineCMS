@@ -1,11 +1,29 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="db.DBConnection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%!
+	String msgerr = "";
+	String msgsuc = "";
+	String msg="";
+%>
 <%
 	Integer tid = (Integer)session.getAttribute("t_id");
 	if(tid == null){
 		response.sendRedirect("Login.jsp?t=false");
 		return;
 	}
+	
+	if(request.getParameter("stat") != null){
+		msg = request.getParameter("stat");
+		if(msg.equals("added")){
+			msgsuc = "Question added successfully";
+		}else if(msg.equals("error")){
+			msgerr = "Question not updated successfully";
+		}
+	}
+	
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -57,6 +75,10 @@
 			document.getElementById("tfchoices").innerHTML = "";
 		}
 	}
+	function closeDiv()
+	{
+		document.getElementById('infoDiv').style.display="none";
+	}
 </script>
 </head>
 <% String teacher_name=(String)session.getAttribute("t_name") ;%>
@@ -91,6 +113,24 @@
     </div>
 	  
 	</nav>
+	<%if(msg!=null)
+	{
+	if(msg.equals("added"))
+	{
+		%>
+		<div  id="infoDiv" class="alert alert-success"  style="font-size: 18px;line-height: 1.5;"> <center><%=msgsuc %></center><span id="cross" style="float:right ;position: absolute;top: 70px;right: 15px; " onclick="closeDiv()" ><h3 style="cursor: pointer;">X</h3></span></div>
+		<%
+	}
+	else if(msg.equals("error"))
+	{
+		%>
+		<div  id="infoDiv" class="alert alert-danger"  style="font-size: 18px;line-height: 1.5;"> <center><%=msgerr %></center><span id="cross" style="float:right ;position: absolute;top: 70px;right: 15px; " onclick="closeDiv()" ><h3 style="cursor: pointer;">X</h3></span></div>
+		<%
+	}
+	} 
+	%>
+	
+	
 	<div style="background-color:#ffffff; width:800px; border: 1px solid #000000; margin:50px auto; padding:5px; box-shadow:0px 0px 20px #333333; border-radius:5px;">
 		<form id="questionform" action="AddQuestionsHandler" method="post">
 		<div style="width:600px; margin:15px auto; padding:5px;">
@@ -108,8 +148,13 @@
 						<td>
 							<select name="subject" class="form-control" style="width:150px;" required>
 							  <option value="">--</option>
-							  <option value="one">One</option>
-							  <option value="two">Two</option>
+							  <% 
+							  	ResultSet rs = DBConnection.selectQuery("select SUB_NAME from subject");
+							  	while(rs.next()){
+							  		String data = rs.getString("SUB_NAME");
+							  %> 
+							  <option value="<%=data %>"><%=data %></option>
+							  <% } %>
 							</select>
 						</td>
 					</tr>
@@ -134,7 +179,7 @@
 						<div class="panel-body">
 							<div style="width:300px; margin:0px auto;">
 								<table id="que-options">
-									<tr><td style="width:80px;"><label>Option 1</label></td><td style="width:200px;"><input type="text" name="opt1" class="form-control" placeholder="Max. 2000 Char's" required pattern=".{4,2000}" maxlength="2000" /></td><td style="width:50px;" align="center"><div style="position:absolute; font-size:10px; margin-left:-5px; margin-top:-22px; color:#ff0000; font-weight:bold;">Correct Answer</div><input type="radio" name="correct" value="A" required /></td></tr>
+									<tr><td style="width:80px;"><label>Option 1</label></td><td style="width:200px;"><input type="text" name="opt1" class="form-control" placeholder="Max. 2000 Char's" required pattern=".{4,2000}" maxlength="2000" /></td><td style="width:50px;" align="center"><div style="position:absolute; font-size:10px; margin-left:-5px; margin-top:-22px; color:000; font-weight:bold;">Correct Answer</div><input type="radio" name="correct" value="A" required /></td></tr>
 									<tr><td><label>Option 2</label></td><td><input type="text" name="opt2" class="form-control" placeholder="Max. 2000 Char's" required pattern=".{4,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="B"  required /></td></td></tr>
 									<tr><td><label>Option 3</label></td><td><input type="text" name="opt3" class="form-control" placeholder="Max. 2000 Char's" pattern=".{4,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="C"  required /></td></td></tr>
 									<tr><td><label>Option 4</label></td><td><input type="text" name="opt4" class="form-control" placeholder="Max. 2000 Char's" pattern=".{4,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="D"  required /></td></td></tr>
@@ -163,13 +208,13 @@
 													<select name="hardness" class="form-control" required>
 														<option value="">----</option>
 														<option value="1">1 (Easy)</option>
-														<option value="2">2</option>
+														<!-- <option value="2">2</option> -->
 														<option value="3">3</option>
-														<option value="4">4</option>
+														<!--<option value="4">4</option> -->
 														<option value="5">5 (Average)</option>
-														<option value="6">6</option>
+														<!-- <option value="6">6</option>-->
 														<option value="7">7</option>
-														<option value="8">8</option>
+														<!--<option value="8">8</option> -->
 														<option value="9">9 (Hard)</option>
 													</select>
 												</td>
@@ -181,7 +226,7 @@
 											<tr>
 												<td><label>Marks</label></td>
 												<td>
-													<input type="text" class="form-control" name="marks" placeholder="Bet. 1 to 9999" maxlength="4" required pattern=".{1,4}" style="width:125px;"/>
+													<input type="text" class="form-control" name="marks" placeholder="Bet. 1 to 99" maxlength="2" required pattern=".{1,2}" style="width:125px;"/>
 												</td>
 											</tr>
 										</table>

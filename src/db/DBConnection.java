@@ -119,6 +119,15 @@ public class DBConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally
+		{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		return flag;
 	}
@@ -135,6 +144,15 @@ public class DBConnection {
 			flag = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return flag;
@@ -237,6 +255,15 @@ public class DBConnection {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally
+		{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return t;
 	}
 
@@ -277,31 +304,35 @@ public class DBConnection {
 
 	public static int updateStudentDetails(int sid, String fname, String lname,
 			String newPwd, String dob, String email, String mobile,
-			String address, String city, String state) {
-
-		int flag = 0;
-
-		String sql = "update * from student set sfname=?, slname=?,password=?, dob=?, email=?, mobileno=?, address=?, city=? , state=? where sid="
-				+ sid;
-		System.out.println(sql);
+			String address, String city, String state )
+	{
+		int flg=0;
+		
+		String sql = "update student set sfname=?, slname=?,password=?, dob=?, email=?, mobileno=?, address=?, city=? , state=? where sid="
+				+sid;
 		try {
 
 			ps = con.prepareStatement(sql);
 
-			ps.setString(2, fname);
-			ps.setString(3, lname);
-			ps.setString(4, newPwd);
-			ps.setString(6, dob);
-			ps.setString(7, email);
-			ps.setString(8, mobile);
-			ps.setString(9, address);
-			ps.setString(10, city);
-			ps.setString(11, state);
-			flag = ps.executeUpdate();
-		} catch (SQLException e) {
+			
+			ps.setString(1, fname);
+			ps.setString(2, lname);
+			ps.setString(3, newPwd);
+			ps.setString(4, dob);
+			ps.setString(5, email);
+			ps.setString(6, mobile);
+			ps.setString(7, address);
+			ps.setString(8, city);
+			ps.setString(9, state);
+			flg = ps.executeUpdate();
+			
+			
+		} catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
-		return flag;
+		return flg;
+		
 	}
 
 	public static String getMaxQid() {
@@ -319,7 +350,7 @@ public class DBConnection {
 		return maxqid;
 	}
 	
-	public static ArrayList populateStudentDetails(int id)
+	public static ArrayList<String> populateStudentDetails(int id)
 	{
 		ArrayList<String> arr=new ArrayList<String>();
 		String sql="select * from student where sid="+id;
@@ -343,6 +374,15 @@ public class DBConnection {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return arr;
 	}

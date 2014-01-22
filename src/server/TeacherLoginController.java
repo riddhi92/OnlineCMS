@@ -23,7 +23,7 @@ public class TeacherLoginController extends HttpServlet {
 		
 		    HttpSession session =request.getSession();
 		    
-		    Boolean validateResult=(Boolean)session.getAttribute("login_success");
+		    Boolean validateResult=(Boolean)session.getAttribute("t_id");
 			if(validateResult !=null && validateResult==true){
 				response.sendRedirect("Login.jsp?t=false");
 				return;

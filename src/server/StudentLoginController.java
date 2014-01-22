@@ -25,6 +25,7 @@ public class StudentLoginController extends HttpServlet {
 
 		String student_name = request.getParameter("uname");
 		String student_pwd = request.getParameter("pwd");
+		
 		boolean result = false;
         int flag=0;
 		HttpSession session = request.getSession();
@@ -71,5 +72,9 @@ public class StudentLoginController extends HttpServlet {
 		}
 
 	}
+
+//	public static void main(String[] args) {
+//		student_pwd
+//	}
 
 }

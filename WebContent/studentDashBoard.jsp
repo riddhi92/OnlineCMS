@@ -19,7 +19,7 @@
 <%
 	
 	int id=(Integer)session.getAttribute("sId");
-	String pwd=(String)session.getAttribute("sPwd"); 
+	String pwd=(String)session.getAttribute("newPwd"); 
 	
 	ArrayList  arr=new ArrayList();
 	arr=DBConnection.populateStudentDetails(id);
@@ -100,6 +100,7 @@ function closeDiv()
     <li><a href="#" onclick="logout.submit();">Logout</a></li>
   </ul>
 </div>
+</div>
 </nav>
 
 <%if(msg!=null)
@@ -117,14 +118,14 @@ else if(msg.equals("0"))
 	<%
 }
 } %>
-  <div style="margin-left:100px; width:400px;"> 
+  <div style="margin-left:100px; width:810px;"> 
   <ul class="nav nav-tabs" id="myTab" style=" width:400px; border:0px solid;">
   <li class="active" style=" width:200px;"><a href="#home" data-toggle="tab" style="color:#000;">Profile</a></li>
   <li style=" width:200px;"><a href="#profile" data-toggle="tab" style="color:#000;">Exam</a></li>
   </ul>
   
-<div class="tab-content" style="width:700px;  border-radius:5px;">
-	<div   class="tab-pane fade in active" id="home" style="width:350px; height:0px auto; margin:0px auto;  margin-left:-20px;margin-top:-20px" >
+<div class="tab-content" style="width:810px;height:390px;  border-radius:5px;">
+	<div   class="tab-pane fade in active" id="home" style="width:810px; height:0px auto; margin:0px auto;  margin-left:-20px;margin-top:-20px" >
 		<div style="margin: 0px auto; padding: 50px; min-width: 850px; max-width: 850px; padding: 20px;">
 		<form role="form" action="UpdateStudDetailsController" method="post">
 			<div class="panel panel-default" style=" height:370px;">
@@ -205,7 +206,7 @@ else if(msg.equals("0"))
 						</td>
 						<td>
 						 <input type="text" class="form-control" name="password"
-							value="<%=pwd%>"	placeholder="Password" required pattern=".{1,20}"
+							value="********"	placeholder="Password" required pattern=".{1,20}"
 								 disabled maxlength="30">
 						</td>
 						<td style="width:10px"></td>
@@ -277,6 +278,7 @@ else if(msg.equals("0"))
 	<div class="tab-pane fade" id="profile" style="width:350px; height:211px; margin:10px auto; margin-left:35px;">
       <div><h3><a style="color:#ffffff; " href="exam.jsp">Start Exam !!</a></h3></div>
 </div>	
+</div>
 </div>
 </body>
 

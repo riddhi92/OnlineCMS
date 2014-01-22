@@ -23,7 +23,7 @@ public class StudentRegController extends HttpServlet
 		String password_characters="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 		String from=request.getParameter("from");
 		String to=request.getParameter("to");
-		int key=0;
+		int key=0,newkey=0;
 		key=Integer.parseInt(from);
 		int no_of_pwd=Integer.parseInt(to)-Integer.parseInt(from);
 		int chk=Integer.parseInt(from)-Integer.parseInt(to);
@@ -51,19 +51,21 @@ public class StudentRegController extends HttpServlet
 		
 		String passwords="";
 		int result=0;
+		
 		if(r1==0 && r2==0)
 		{
 			for(j=0;j<no_of_pwd+1;j++)
 			{ 
-				for(i=0;i<8;i++)
+				for(i=0;i<6;i++)
 				{ 
 					passwords+=password_characters.charAt((int) (Math.floor(Math.random()*password_characters.length())));
 				}
-			
+					
 					result=DBConnection.insertQueryStud(key,passwords);
 					passwords="";
 					key++;
 			} 
+		
 		}
 		if(result==1)
 		{

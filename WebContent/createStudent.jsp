@@ -49,11 +49,17 @@
 	{
 	    rr1=request.getParameter("r1");
 	    rr2=request.getParameter("r2");
+	
 		msg = request.getParameter("s");
-		if(msg.equals("invalid"))
+		if(msg.equals("invalid") && rr1.equals(rr2))
 		{
-			msg = "Student id already exits from "+rr1+" to "+rr2;
+			msg = "Student id "+rr1+" already exits";
 		}
+		else if(msg.equals("invalid"))
+		{
+			msg = "Some student id already exits from "+rr1+" to "+rr2;
+		}
+		
 		if(msg.equals("fail"))
 		{
 			msg="file id not uploaded properly";
@@ -102,7 +108,7 @@
 </nav>
 <%if(!msg.equals("")){ 
 	%>
-<div  id="infoDiv" class="alert alert-danger"  style="font-size: 18px;line-height: 1.5;"> <center><%=msg %></center><span id="cross" style="float:right ;position: absolute;top: 70px;right: 15px; " onclick="closeDiv()" ><h3>X</h3></span></div>
+<div  id="infoDiv" class="alert alert-danger"  style="font-size: 18px;line-height: 1.5;"> <center><%=msg %></center><span id="cross" style="float:right ;position: absolute;top: 70px;right: 15px; " onclick="closeDiv()" ><h3 style="cursor: pointer;">X</h3></span></div>
 <% }
 %>
 <div style=" margin:0px auto; padding:50px; min-width:1000px; max-width:1000px; padding:20px;">
