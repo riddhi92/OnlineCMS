@@ -1,7 +1,11 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.QuestionData"%>
+<%@page import="process.RandomQuestions"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="db.DBConnection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.Random" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -66,7 +70,7 @@
 	</script>
 </head>
 <%
-	
+	int question[] = process.RandomQuestions.generate(3);
 %>
 <body onresize="winresize();" onload="winresize();">
 <div id="back" style="width:100%; position: absolute; z-index:1; min-width: 1000px; height:101%;">
@@ -109,22 +113,27 @@
 				<div id="indexholder" style="margin:10px auto; width:180px; padding:6px 0px 0px 0px; min-height:300px; max-height:500px; overflow:auto; border-radius:5px; border:5px solid #A2A2A2; ">
 					<center>
 					<%//Generate Question Indexes
-					ResultSet rs1 = DBConnection.selectQuery("select count(*) CNT from qbank where type='mcq'");
-					if(rs1.next()){	
-						int j = rs1.getInt("CNT");
-						for(int i = 1; i <= j; i++){
-					%>
-						<a href="#<%=i %>"><div class="indx"><%=i %></div></a>
-					<%
-						}
+					//ResultSet rs1 = DBConnection.selectQuery("select count(*) CNT from qbank where type='mcq'");
+					String allquestions = question[0]+"";
+					for(int i = 1; i <= question.length-1; i++)
+						allquestions += ("," + question[i]);
+
+					ResultSet rs = DBConnection.selectQuery("select qid, opt1, opt2, opt3, opt4, type from qbank where qid in ("+allquestions+")");
+
+					int j = question.length;
+					for(int i = 1; i <= j; i++)
+					{
+						%>
+							<a href="#<%=i %>"><div class="indx"><%=i %></div></a>
+						<%
 					}
+					
 					%>
 					</center>
 				</div>
 			</div>
 			<div id="quepanel" style="display:inline-block; margin:0px auto; padding:2px; width:740px; vertical-align: top; overflow-y:scroll;  height: 520px; background-color: #ffffff; margin-right: -3px;">
 				<%
-					ResultSet rs = DBConnection.selectQuery("select * from qbank where type='mcq' order by qid");
 					int i = 0;
 					while(rs.next()){
 						i++;

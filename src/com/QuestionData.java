@@ -2,7 +2,7 @@ package com;
 
 public class QuestionData {
 	private String qtype, subject, que, opt1, opt2, opt3, opt4, correct;
-	private int hardness, marks;
+	private int hardness, marks, qid;
 	
 	public String getQtype() {
 		return qtype;
@@ -63,5 +63,11 @@ public class QuestionData {
 	}
 	public void setMarks(int marks) {
 		this.marks = marks;
+	}
+	public int getQid() {
+		return qid;
+	}
+	public void setQid(int qid) {
+		this.qid = qid;
 	}
 }
