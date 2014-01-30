@@ -535,4 +535,21 @@ public class DBConnection {
 		return flg;
 	}
 
+	public static int insertAnswer(int eid, int sid, String ans_string) {
+		String sql = "insert into E"+eid+"(S_ID, ANSWER, OBTAINED_MARKS) values (?,?,?)";
+		int flag = 0;
+		try 
+		{
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, sid);
+			ps.setString(2, ans_string);
+			ps.setString(3, "");
+			flag = ps.executeUpdate();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return flag;
+	}
 }

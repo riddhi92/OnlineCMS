@@ -11,6 +11,7 @@
 	int examId = 1;
 	int question[] = process.RandomQuestions.generate(examId); //<============ Till DB Connection error;
 	session.setAttribute("maxquestions", question.length);
+	session.setAttribute("eid",examId);
 	//int question[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -76,9 +77,6 @@
 		}
 	</script>
 	<script>
-		//var attempted = 0;
-		//var review = 0;
-		//var unattempted = <%=question.length %>;
 		var totalquestions = <%=question.length %>;
 		var arr= new Array();
 		var review = new Array();
@@ -122,8 +120,7 @@
 			xmlRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlRequest.onreadystatechange = function()
 			{
-				var intervalId;
-				if(xmlRequest.readyState == 1 )
+				if(xmlRequest.readyState == 2 )
 				{
 					document.getElementsByName("q"+qid)[0].disabled = true;
 					document.getElementsByName("q"+qid)[1].disabled = true;
@@ -133,9 +130,8 @@
 
 				if(xmlRequest.readyState == 4)
 				{
-					if(xmlRequest.responseText == "ok")
+					if(xmlRequest.responseText == "ok" && xmlRequest.status == 200)
 					{
-						clearInterval(intervalId);
 						var total = 0;
 						var flag = true;
 						if(option=="Clear")
