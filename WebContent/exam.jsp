@@ -6,6 +6,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Random" %>
+
+<%
+	int examId = 1;
+	int question[] = process.RandomQuestions.generate(examId); //<============ Till DB Connection error;
+	session.setAttribute("maxquestions", question.length);
+	//int question[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -68,12 +75,119 @@
 			}
 		}
 	</script>
+	<script>
+		//var attempted = 0;
+		//var review = 0;
+		//var unattempted = <%=question.length %>;
+		var totalquestions = <%=question.length %>;
+		var arr= new Array();
+		var review = new Array();
+		for(var i=0; i<totalquestions; i++)
+		{
+			arr[i] = 0;
+			review[i] = 0;
+		}
+		function ajaxcall(qid,option)
+		{
+		 	if(option=="Flag")
+			{
+		 		var totalreview = 0;
+		 		review[qid -1] = 1;
+		 		for(var k = 0; k < totalquestions; k++)
+				{
+					totalreview += review[k];
+				}
+		 		document.getElementById("review").innerHTML = totalreview;
+		 		document.getElementById("f"+qid).style.display = "none";
+		 		document.getElementById("uf"+qid).style.display = "inline";
+		 		document.getElementById("flg"+qid).style.display = "inline";
+				return;
+			}
+		 	else if(option == "Unflag")
+	 		{
+		 		var totalreview = 0;
+		 		review[qid -1] = 0;
+		 		for(var k = 0; k < totalquestions; k++)
+				{
+					totalreview += review[k];
+				}
+		 		document.getElementById("review").innerHTML = totalreview;
+		 		document.getElementById("f"+qid).style.display = "inline";
+		 		document.getElementById("uf"+qid).style.display = "none";
+		 		document.getElementById("flg"+qid).style.display = "none";
+				return;
+	 		}
+			var xmlRequest = new XMLHttpRequest();
+			xmlRequest.open("POST", "LogAnswer", true);
+			xmlRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlRequest.onreadystatechange = function()
+			{
+				var intervalId;
+				if(xmlRequest.readyState == 1 )
+				{
+					document.getElementsByName("q"+qid)[0].disabled = true;
+					document.getElementsByName("q"+qid)[1].disabled = true;
+					document.getElementsByName("q"+qid)[2].disabled = true;
+					document.getElementsByName("q"+qid)[3].disabled = true;
+				}
+
+				if(xmlRequest.readyState == 4)
+				{
+					if(xmlRequest.responseText == "ok")
+					{
+						clearInterval(intervalId);
+						var total = 0;
+						var flag = true;
+						if(option=="Clear")
+						{
+							document.getElementsByName("q"+qid)[0].checked = false;
+							document.getElementsByName("q"+qid)[1].checked = false;
+							document.getElementsByName("q"+qid)[2].checked = false;
+							document.getElementsByName("q"+qid)[3].checked = false;
+							flag = false;
+							arr[qid-1] = 0;
+						}
+						else
+						{
+							arr[qid-1] = 1;
+						}
+						
+						for(var j = 0; j < totalquestions; j++)
+						{
+							total += arr[j]; 
+						}
+						
+						document.getElementById("attemptd").innerHTML = total;
+						document.getElementById("unattemptd").innerHTML = (totalquestions - total);
+						if(flag)
+							document.getElementById("crrt"+qid).style.display = "inline";
+						else
+							document.getElementById("crrt"+qid).style.display = "none";
+						document.getElementsByName("q"+qid)[0].disabled = false;
+						document.getElementsByName("q"+qid)[1].disabled = false;
+						document.getElementsByName("q"+qid)[2].disabled = false;
+						document.getElementsByName("q"+qid)[3].disabled = false;
+					}
+					else
+					{
+						document.getElementsByName("q"+qid)[0].checked = false;
+						document.getElementsByName("q"+qid)[1].checked = false;
+						document.getElementsByName("q"+qid)[2].checked = false;
+						document.getElementsByName("q"+qid)[3].checked = false;
+						document.getElementsByName("q"+qid)[0].disabled = false;
+						document.getElementsByName("q"+qid)[1].disabled = false;
+						document.getElementsByName("q"+qid)[2].disabled = false;
+						document.getElementsByName("q"+qid)[3].disabled = false;
+						
+					}
+				}
+			};
+			xmlRequest.send("qid="+qid+"&option="+option+"&total="+totalquestions);
+		}
+	</script>
 </head>
-<%
-	int question[] = process.RandomQuestions.generate(3);
-%>
 <body onresize="winresize();" onload="winresize();">
-<div id="back" style="width:100%; position: absolute; z-index:1; min-width: 1000px; height:101%;">
+<div id="back" style="width:100%; height:100%; position: fixed; z-index:-666; min-width: 1000px;">
 	<nav id="navigator" class="navbar navbar-default" role="navigation" style="min-width: 1000px; margin-bottom:2px;" >
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -96,9 +210,9 @@
 		<div id="examinfoholder" style="margin:0px auto; padding:5px 0px; width:950px;  background-color:rgba(55,55,55,0.5); border-radius:5px; text-align:center; color:#ffffff; font-weight:bold;">
 				<table class="examinfo" style="margin:0px auto; display:inline-block;">
 					<tr>
-						<td>Attempted</td><td>:</td><td>0</td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
-						<td>Review</td><td>:</td><td>0</td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
-						<td>Unattempted</td><td>:</td><td>All</td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
+						<td>Attempted</td><td>:</td><td><span id="attemptd">0</span></td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
+						<td>Review</td><td>:</td><td><span id="review">0</span></td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
+						<td>Unattempted</td><td>:</td><td><span id="unattemptd"><%=question.length %></span></td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
 					</tr>
 				</table>
 				<table class="examinfo" style="margin:0px auto; display:inline-block;">
@@ -124,7 +238,7 @@
 					for(int i = 1; i <= j; i++)
 					{
 						%>
-							<a href="#<%=i %>"><div class="indx"><%=i %></div></a>
+							<a href="#<%=i %>"><div id="indx<%=i %>" class="indx"><%=i %>&nbsp;<img id="crrt<%=i %>" src="images/correct.png" style="display: none;"/><img id="flg<%=i %>" src="images/flag_red.png" style="display: none;"/></div></a>
 						<%
 					}
 					
@@ -145,8 +259,36 @@
 					<div style="margin-top: -37px; z-index: 199; height: 100px;">
 						<div style="width:700px; margin-left: 20px; font-weight: bold; font-size: 13px;">
 							<table style="width:650px; margin-left:50px; min-height:100px; text-align: left;">
-								<tr><td style=" padding: 10px;"><input type="radio" name="q<%=i %>" value="A" />&nbsp;<%=rs.getString("OPT1") %></td><td style=" padding: 10px;"><input type="radio" name="q<%=i %>"  value="B" />&nbsp;<%=rs.getString("OPT2") %></td></tr>
-								<tr><td style=" padding: 10px;"><input type="radio" name="q<%=i %>" value="C" />&nbsp;<%=rs.getString("OPT3")%></td><td style=" padding: 10px;"><input type="radio" name="q<%=i %>" value="D" />&nbsp;<%=rs.getString("OPT4") %></td></tr>
+							<% if(rs.getString("type").equals("mcq"))
+								{	
+							%>
+								<tr>
+									<td style="padding:10px;"><input type="radio" name="q<%=i %>" id="A<%=i %>" value="A" onchange="ajaxcall(<%=i %>,this.value)" />&nbsp;<label for="A<%=i %>"><%=rs.getString("OPT1") %></label></td>
+									<td style="padding:10px;"><input type="radio" name="q<%=i %>" id="B<%=i %>" value="B" onchange="ajaxcall(<%=i %>,this.value)"/>&nbsp;<label for="B<%=i %>"><%=rs.getString("OPT2") %></label></td>
+								</tr>
+								<tr>
+									<td style=" padding: 10px;"><input type="radio" name="q<%=i %>" id="C<%=i %>" value="C"  onchange="ajaxcall(<%=i %>,this.value)" />&nbsp;<label for="C<%=i %>"><%=rs.getString("OPT3")%></label></td>
+									<td style=" padding: 10px;"><input type="radio" name="q<%=i %>" id="D<%=i %>" value="D"  onchange="ajaxcall(<%=i %>,this.value)"/>&nbsp;<label for="D<%=i %>"><%=rs.getString("OPT4") %></label></td>
+								</tr>
+								<tr>
+									<td colspan="2"><input type="button" value="Clear" onclick="ajaxcall(<%=i %>,this.value)"/>&nbsp;<input type="button" id="f<%=i %>" value="Flag" onclick="ajaxcall(<%=i %>,this.value)"/><input type="button" id="uf<%=i %>" value="Unflag" style="display:none;" onclick="ajaxcall(<%=i %>,this.value)"/></td>
+								</tr>
+							<%
+								}
+								else if(rs.getString("type").equals("tf"))
+								{
+							%>
+								<tr>
+									<td style="padding:10px;"><input type="radio" name="q<%=i %>" id="A<%=i %>" value="A" onchange="ajaxcall(<%=i %>,this.value)" />&nbsp;<label for="A<%=i %>">True</label></td>
+									<td style="padding:10px;"><input type="radio" name="q<%=i %>" id="B<%=i %>" value="B" onchange="ajaxcall(<%=i %>,this.value)"/>&nbsp;<label for="B<%=i %>">False</label></td>
+								</tr>
+								<tr><td><input type="hidden" name="q<%=i %>" /></td><td><input type="hidden" name="q<%=i %>" /></td></tr>
+								<tr>
+									<td colspan="2"><input type="button" value="Clear" onclick="ajaxcall(<%=i %>,this.value)"/>&nbsp;<input type="button" id="f<%=i %>" value="Flag" onclick="ajaxcall(<%=i %>,this.value)"/><input type="button" id="uf<%=i %>" value="Unflag" style="display:none;" onclick="ajaxcall(<%=i %>,this.value)"/></td>
+								</tr>
+							<%
+								}
+							%>
 							</table>
 						</div>
 					</div>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.sql.*,db.DBConnection"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -74,6 +74,13 @@ else if(reg.equals("s_success"))
 	<div  id="infoDiv" class="alert alert-success"  style="font-size: 18px;line-height: 1.5;"> <center>Student accounts created successfully!</center><span id="cross" style="float:right ;position: absolute;top: 70px;right: 15px;  cursor:pointer;" onclick="closeDiv()" ><h3>X</h3></span></div>
 	<%
 }
+else if(reg.equals("exam_success"))
+{
+	%>
+	<div  id="infoDiv" class="alert alert-success"  style="font-size: 18px;line-height: 1.5;"> <center>Exam Paper created successfully!</center><span id="cross" style="float:right ;position: absolute;top: 70px;right: 15px;  cursor:pointer;" onclick="closeDiv()" ><h3>X</h3></span></div>
+	<%
+}
+
 } %>
  
 <div style=" margin:0px auto; padding:50px; min-width:1000px; max-width:1000px; padding:20px;">
@@ -95,28 +102,62 @@ else if(reg.equals("s_success"))
 	<div style=" width:530px; display:inline-block;vertical-align: top">
 		 <div class="panel panel-default">
 			  <div class="panel-heading">
-				<h3 class="panel-title">Panel title</h3>
+				<h3 class="panel-title">Organization Information</h3>
 			  </div>
 			  <div class="panel-body">
-				Panel contentdgfdgdfg fdgfdgdfg dfgfdgfdg 
-				fdsfdsfds dsfdsfdsf
-				
-				Panel contentdgfdgdfg fdgfdgdfg dfgfdgfdg 
-				fdsfdsfds dsfdsfdsf
-				Panel contentdgfdgdfg fdgfdgdfg dfgfdgfdg 
-				fdsfdsfds dsfdsfdsf
+			 <% 
+			 String total_student="";
+			 String total_teacher="";
+			 DBConnection obj1 = DBConnection.getObject();
+				 ResultSet rs1= obj1.getTotalStudent();
+			 if(rs1.next())
+			 {
+				  total_student=rs1.getString("countval");
+			 }
+			 ResultSet rs2= obj1.getTotalteacher();
+			 if(rs2.next())
+			 {
+				  total_teacher=rs2.getString("countval");
+			 }
+				%>
+				<b> Registered Total student :<%=total_student %></b><br>
+				<b> Registered Total Teacher:<%=total_teacher %></b>
 			  </div>
 		       <div class="panel-heading">
-				<h3 class="panel-title">Panel title</h3>
+				<h3 class="panel-title">Available Exam</h3>
 			  </div>
 			  <div class="panel-body">
-				Panel content dfsdfsd
+			 <table class="table table-hover" style="background-color:#fff; border-radius:3px;">
+			    <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Exam Date</th>
+            <th>Hardness Level</th>
+			<th>Venue</th>
+		
+          </tr>
+        </thead>
+			  <tbody>
+				 <% 
+			     String sql="select * from examinfo";
+				 ResultSet rs= DBConnection.getObject().selectQuery(sql); 
 				
-				Panel contentdgfdgdfg fdgfdgdfg dfgfdgfdg 
-				fdsfdsfds dsfdsfdsf
-				
-				Panel contentdgfdgdfg fdgfdgdfg dfgfdgfdg 
-				fdsfdsfds dsfdsfdsf
+		        
+				 while(rs.next())
+				 {%>
+					  <tr>
+			            <td><%=rs.getString("subject") %></td>
+			            <td><%=rs.getString("exam_date")%></td>
+			            <td><%=rs.getString("hardness")%></td>
+			            <td><%=rs.getString("venue")%></td>
+			           </tr>
+					 
+				<% 
+				}
+			 
+			  %>
+			  </tbody>
+			  </table>
 			  </div>
 		  
 		 </div>
@@ -129,7 +170,7 @@ else if(reg.equals("s_success"))
 			Create Teacher
 		  </a>
 		  <a href="createStudent.jsp" class="list-group-item">Create Student</a>
-		  <a href="#" class="list-group-item">Create Exam</a>
+		  <a href="createexam.jsp" class="list-group-item">Create Exam</a>
 		  <a href="#" class="list-group-item">Display Exam</a>
 		  <a href="#" class="list-group-item">Notification  <span class="badge">14</span></a>
 		</div>

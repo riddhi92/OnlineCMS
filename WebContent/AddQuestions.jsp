@@ -61,7 +61,7 @@
 </style>
 <script>
 	var choicedata = "";
-	var tfdata = '<div style="padding:5px;"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title" style="text-align:center; font-weight:bold;">Correct Answer</h3></div><div class="panel-body"><div style="width:130px; margin:0px auto;"><table id="que-options"><tr><td style="width:80px;"><label style="margin-top: 3px;">TRUE</label></td><td style="width:50px;" align="center"><input type="radio" name="correct" value="T"/></td></tr><tr><td style="width:80px;"><label style="margin-top: 3px;">FALSE</label></td><td style="width:50px;" align="center"><input type="radio" name="correct" value="F"/></td></tr></table></div></div></div></div>';
+	var tfdata = '<div style="padding:5px;"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title" style="text-align:center; font-weight:bold;">Correct Answer</h3></div><div class="panel-body"><div style="width:130px; margin:0px auto;"><table id="que-options"><tr><td style="width:80px;"><label style="margin-top: 3px;">TRUE</label></td><td style="width:50px;" align="center"><input type="radio" name="correct" value="A"/></td></tr><tr><td style="width:80px;"><label style="margin-top: 3px;">FALSE</label></td><td style="width:50px;" align="center"><input type="radio" name="correct" value="B"/></td></tr></table></div></div></div></div>';
 				
 	function behav(value)
 	{
@@ -179,10 +179,10 @@
 						<div class="panel-body">
 							<div style="width:300px; margin:0px auto;">
 								<table id="que-options">
-									<tr><td style="width:80px;"><label>Option 1</label></td><td style="width:200px;"><input type="text" name="opt1" class="form-control" placeholder="Max. 2000 Char's" required pattern=".{4,2000}" maxlength="2000" /></td><td style="width:50px;" align="center"><div style="position:absolute; font-size:10px; margin-left:-5px; margin-top:-22px; color:000; font-weight:bold;">Correct Answer</div><input type="radio" name="correct" value="A" required /></td></tr>
-									<tr><td><label>Option 2</label></td><td><input type="text" name="opt2" class="form-control" placeholder="Max. 2000 Char's" required pattern=".{4,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="B"  required /></td></td></tr>
-									<tr><td><label>Option 3</label></td><td><input type="text" name="opt3" class="form-control" placeholder="Max. 2000 Char's" pattern=".{4,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="C"  required /></td></td></tr>
-									<tr><td><label>Option 4</label></td><td><input type="text" name="opt4" class="form-control" placeholder="Max. 2000 Char's" pattern=".{4,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="D"  required /></td></td></tr>
+									<tr><td style="width:80px;"><label>Option 1</label></td><td style="width:200px;"><input type="text" name="opt1" class="form-control" placeholder="Max. 2000 Char's" required pattern=".{1,2000}" maxlength="2000" /></td><td style="width:50px;" align="center"><div style="position:absolute; font-size:10px; margin-left:-5px; margin-top:-22px; color:000; font-weight:bold;">Correct Answer</div><input type="radio" name="correct" value="A" required /></td></tr>
+									<tr><td><label>Option 2</label></td><td><input type="text" name="opt2" class="form-control" placeholder="Max. 2000 Char's" required pattern=".{1,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="B"  required /></td></td></tr>
+									<tr><td><label>Option 3</label></td><td><input type="text" name="opt3" class="form-control" placeholder="Max. 2000 Char's" pattern=".{1,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="C"  required /></td></td></tr>
+									<tr><td><label>Option 4</label></td><td><input type="text" name="opt4" class="form-control" placeholder="Max. 2000 Char's" pattern=".{1,2000}" maxlength="2000" /></td><td align="center"><input type="radio" name="correct" value="D"  required /></td></td></tr>
 								</table>
 							</div>
 						</div>

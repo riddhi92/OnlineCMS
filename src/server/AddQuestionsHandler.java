@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.QuestionData;
 
+import db.DBConnection;
+
 @WebServlet("/AddQuestionsHandler")
 public class AddQuestionsHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -78,6 +80,7 @@ public class AddQuestionsHandler extends HttpServlet {
 					if(imgstatus){
 						response.sendRedirect("AddQuestions.jsp?stat=added");
 					}else{
+						DBConnection.deleteQuery("delete from qbank where statement='"+que+"'");
 						response.sendRedirect("AddQuestions.jsp?stat=failed");
 					}
 				}else{

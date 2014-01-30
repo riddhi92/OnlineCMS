@@ -50,7 +50,28 @@ public class DBConnection {
 		return rs;
 
 	}
+	
+	public static DBConnection getObject() {
+		return new DBConnection();
+	}
+	
+	public static boolean deleteQuery(String sql)
+	{
+		boolean status = false;
+		int flag;
+		try {
+			flag = ps.executeUpdate(sql);
+			if(flag == 1)
+				status = true;
+			else
+				status = false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
+		return status; 
+	}
+	
 	public static int insertQueryTeacher(Teacher tec) {
 		int flag = 0;
 		String sql = "insert into teacher(tid,tregId,tname,tpwd,temail,tmobile,tsub,tcity,tstate) values(t_id.NEXTVAL,?,?,?,?,?,?,?,?)";
@@ -314,7 +335,6 @@ public class DBConnection {
 
 			ps = con.prepareStatement(sql);
 
-			
 			ps.setString(1, fname);
 			ps.setString(2, lname);
 			ps.setString(3, newPwd);
@@ -385,6 +405,134 @@ public class DBConnection {
 			}
 		}
 		return arr;
+	}
+	
+
+	public static ResultSet getTotalquestion(String subject) {
+		String sql = "select count(*) countval from qbank where sub='"
+				+ subject + "'";
+
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			System.out.println(rs.getString("countval") + "");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rs;
+	}
+	
+	public static int insertExamInfo(String Sub_name, int totalque,
+			int hardness, String exam_date, String venue, String result_date) {
+		ResultSet rs1 = convertStringToDate(exam_date);
+
+		ResultSet rs2 = convertStringToDate(result_date);
+		try {
+			if (rs1.next()) {
+				System.out.println(rs1.getDate(1));
+			}
+
+			if (rs2.next()) {
+				System.out.println(rs2.getDate(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		int flag = 0;
+		String sql = "insert into examinfo(exam_id,subject,total_quest,exam_date,venue,result_date,hardness) values(exam_id.NEXTVAL,?,?,?,?,?,?)";
+		try {
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, Sub_name);
+			ps.setInt(2, totalque);
+			ps.setDate(3, rs.getDate(1));
+			ps.setString(4, venue);
+			ps.setDate(5, rs1.getDate(1));
+			ps.setInt(6, hardness);
+			flag = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return flag;
+	}
+
+	public static ResultSet convertStringToDate(String str) {
+		String sql = "select to_date('" + str + "','YYYY-MM-DD') from dual";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rs;
+
+	}
+
+	public static ResultSet getTotalStudent() {
+		String sql = "select count(*) countval from student";
+
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rs;
+	}
+
+	public static ResultSet getTotalteacher() {
+		String sql = "select count(*) countval from teacher";
+
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rs;
+	}
+
+	public static ResultSet getStudentExamId() {
+		String sql = "select count(*) countval from exam_result";
+
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rs;
+	}
+
+	public static int updateExamResponse(String question) {
+		// TODO Auto-generated method stub
+		int flg=0;
+		
+		String sql = "update examinfo set question=? where exam_id=33";
+				
+		try {
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, question);
+			flg = ps.executeUpdate();
+			
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return flg;
 	}
 
 }
