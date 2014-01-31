@@ -33,11 +33,11 @@ public class StudentDetailsHandler extends HttpServlet {
 		int flg=DBConnection.updateStudentDetails(sid, fname, lname, newPwd, dob, email, mobile, address, city, state);
 		if(flg==1)
 		{
-			response.sendRedirect("studentDashBoard.jsp");
+			response.sendRedirect("studentdashboard.jsp");
 		}
 		else
 		{
-			response.sendRedirect("studentDetails.jsp");
+			response.sendRedirect("studentdetails.jsp");
 		}
 		
 	}

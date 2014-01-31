@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Student Account Creation</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -70,8 +70,7 @@
 	Boolean validateResult=(Boolean)session.getAttribute("login_success");
 	if(validateResult==null)
 	{
-		System.out.println("dsfdsf");
-		response.sendRedirect("admin_login.jsp?s=false");
+		response.sendRedirect("adminlogin.jsp?s=false");
 	}
 		
 %>
@@ -87,7 +86,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">CMS(online Exams)</a>
+    <a class="navbar-brand" href="dashboard.jsp">ExamCMS</a>
 	
 	 <a class="navbar-brand" >Student Account</a>
   </div>
@@ -176,7 +175,7 @@
 
 
 </div>
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 <% 	msg = ""; 

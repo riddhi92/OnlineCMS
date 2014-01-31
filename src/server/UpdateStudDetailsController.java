@@ -23,7 +23,7 @@ public class UpdateStudDetailsController extends HttpServlet {
 		HttpSession session=request.getSession();
 		int id=(Integer)session.getAttribute("sId");
 		String pwd=(String)session.getAttribute("sPwd");
-		System.out.println(pwd);
+		
 	
 		String fname=request.getParameter("fname");
 		String lname=request.getParameter("lname");
@@ -43,12 +43,12 @@ public class UpdateStudDetailsController extends HttpServlet {
 		int flg=DBConnection.updateStudentDetails(id,fname,lname,newPwd,dob,email,mobile,address,city,state);
 		if(flg==1)
 		{
-			response.sendRedirect("studentDashBoard.jsp?f=1");
+			response.sendRedirect("studentdashboard.jsp?f=1");
 		}
 		
 		else
 		{
-			response.sendRedirect("studentDashBoard.jsp?f=0");
+			response.sendRedirect("studentdashboard.jsp?f=0");
 		}
 	
 	}

@@ -27,12 +27,12 @@ public class AdminLoginController extends HttpServlet {
 		    
 			Boolean validateResult=(Boolean)session.getAttribute("login_success");
 			if(validateResult !=null && validateResult==true){
-				response.sendRedirect("admin_login.jsp?s=false");
+				response.sendRedirect("adminlogin.jsp?s=false");
 				return;
 			}
 		 
 			if (admin_name == null || admin_name.isEmpty() || admin_pwd == null	|| admin_pwd.isEmpty()) {
-				response.sendRedirect("admin_login.jsp?s=false");
+				response.sendRedirect("adminlogin.jsp?s=false");
 			} else {
 				String sql = "select * from admin";
 				ResultSet rs = DBConnection.selectQuery(sql);
@@ -59,7 +59,7 @@ public class AdminLoginController extends HttpServlet {
 					}
 					else
 					{
-						response.sendRedirect("admin_login.jsp?s=invalid");
+						response.sendRedirect("adminlogin.jsp?s=invalid");
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();

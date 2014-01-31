@@ -27,13 +27,13 @@ public class Logout extends HttpServlet {
 		String usercheck = request.getParameter("user");
 		if(usercheck != null){
 			if(usercheck.equals("admin"))
-				response.sendRedirect("admin_login.jsp");
+				response.sendRedirect("adminlogin.jsp");
 			else if (usercheck.equals("teacher"))
-				response.sendRedirect("Login.jsp?t=");
+				response.sendRedirect("login.jsp?t=");
 			else if(usercheck.equals ("student"))
-				response.sendRedirect("Login.jsp?s=");
+				response.sendRedirect("login.jsp?s=");
 		}else{
-			response.sendRedirect("Login.jsp");
+			response.sendRedirect("login.jsp");
 		}
 	}
 

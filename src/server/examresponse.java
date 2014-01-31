@@ -31,12 +31,12 @@ public class examresponse extends HttpServlet {
 		
 		
 		HttpSession session=request.getSession();
-		int sid = (int)session.getAttribute("sId");
-		int eid = (int)session.getAttribute("eid");
+		int sid = (Integer)session.getAttribute("sId");
+		int eid = (Integer)session.getAttribute("examId");
 		int totalque = (Integer)session.getAttribute("maxquestions");
 		char arr[] = (char[])session.getAttribute("sdata");
 		String ans_string = "";
-		for(int i = 0; i < totalque; i++)
+		for(int i = 0; i < totalque-1; i++)
 		{
 			ans_string += arr[i];
 		}
@@ -44,8 +44,7 @@ public class examresponse extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		if(stat == 1)
 		{			
-			out.write("Data Inserted!");
-			//session.invalidate();
+			response.sendRedirect("studentdashboard.jsp");
 		}
 		else
 		{

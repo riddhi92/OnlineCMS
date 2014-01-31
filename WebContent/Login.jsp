@@ -39,14 +39,14 @@
 
 	function lchk(){
 		var obj = new XMLHttpRequest();
-		obj.open("GET", "CheckUserType.jsp", true);
+		obj.open("GET", "checkusertype.jsp", true);
 		obj.onreadystatechange = function(){
 			if(obj.readyState == 4 && obj.status == 200){
 					var stat = obj.responseText;
 					if(stat == "T"){
-						window.top.location = "AddQuestions.jsp";
+						window.top.location = "addquestions.jsp";
 					}else if(stat == "S"){
-						window.top.location = "studentDashBoard.jsp";
+						window.top.location = "studentdashboard.jsp";
 					}
 			}
 		};
@@ -93,7 +93,7 @@ function check()
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">CMS(online Exams)</a>
+    <a class="navbar-brand" href="#">ExamCMS</a>
   </div>
   
    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color:#F1EEEE">
@@ -168,7 +168,7 @@ function check()
 </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script src="js/tab.js" type="text/javascript"></script>
 <%msg=""; %>

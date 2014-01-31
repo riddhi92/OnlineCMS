@@ -34,7 +34,7 @@ public class StudentRegController extends HttpServlet
 		if(chk>0)
 		{
 			
-			response.sendRedirect("createStudent.jsp?err=wrong");
+			response.sendRedirect("createstudent.jsp?err=wrong");
 		}
 		else
 		{
@@ -75,7 +75,7 @@ public class StudentRegController extends HttpServlet
 		else
 		{
 			
-			response.sendRedirect("createStudent.jsp?s=invalid&r1="+r1+"&r2="+r2);
+			response.sendRedirect("createstudent.jsp?s=invalid&r1="+r1+"&r2="+r2);
 		}
 		
 		}

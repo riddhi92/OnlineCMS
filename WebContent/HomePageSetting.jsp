@@ -1,5 +1,5 @@
 <%@page import="db.DBConnection"%>
-<%@page import="java.sql.*"%>
+<%@page import="java.sql.* "%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Fill Student Details</title>
+<title>Home page setting</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet"
@@ -82,13 +82,13 @@ String msg="";
   Boolean validateResult=(Boolean)session.getAttribute("s");
   if(validateResult !=null && validateResult==true)
   {
-  	System.out.println("dsfdsf");
-  	response.sendRedirect("admin_login.jsp?s=false");
+  	response.sendRedirect("adminlogin.jsp?s=false");
   	
   }
   String admin_name=(String)session.getAttribute("admin_name");
   String reg=request.getParameter("status");
 
+ 
  
   
 %>
@@ -104,7 +104,7 @@ String msg="";
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">CMS(online Exams)</a>
+			<a class="navbar-brand" href="dashboard.jsp">ExamCMS</a>
 		</div>
 
 		<div class="btn-group"
@@ -211,6 +211,6 @@ String msg="";
 
 		</div>
 </body>
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </html>

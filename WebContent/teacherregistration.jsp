@@ -36,8 +36,7 @@ String admin_name=(String)session.getAttribute("admin_name");
 Boolean validateResult=(Boolean)session.getAttribute("login_success");
 if(validateResult==null)
 {
-	System.out.println("dsfdsf");
-	response.sendRedirect("admin_login.jsp?s=false");
+	response.sendRedirect("adminlogin.jsp?s=false");
 	
 }
 %>
@@ -53,7 +52,7 @@ if(validateResult==null)
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">CMS(online Exams)</a>
+    <a class="navbar-brand" href="dashboard.jsp">ExamCMS</a>
 	
 	 <a class="navbar-brand" >Teacher Account</a>
   </div>
@@ -156,7 +155,7 @@ if(validateResult==null)
 
 </div>
 
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 <script>

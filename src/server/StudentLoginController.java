@@ -32,10 +32,10 @@ public class StudentLoginController extends HttpServlet {
 
 		if (student_name == null || student_name.isEmpty() || 
 				 student_pwd == null || student_pwd.isEmpty()) {
-			response.sendRedirect("Login.jsp?s=false");
+			response.sendRedirect("login.jsp?s=false");
 		} else {
 			if(!student_name.matches(".*\\d.*")){
-				response.sendRedirect("Login.jsp?s=invalid");
+				response.sendRedirect("login.jsp?s=invalid");
 				return;
 			}
 			int sid=Integer.parseInt(student_name);
@@ -58,12 +58,12 @@ public class StudentLoginController extends HttpServlet {
 				}
 
 				if(result && flag==1 ) {
-					response.sendRedirect("studentDashBoard.jsp");
+					response.sendRedirect("studentdashboard.jsp");
 				}
 				else if (result && flag==0 ) {
-					response.sendRedirect("studentDetails.jsp?sid="+sid);
+					response.sendRedirect("studentdetails.jsp?sid="+sid);
 				} else {
-					response.sendRedirect("Login.jsp?s=invalid");
+					response.sendRedirect("login.jsp?s=invalid");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -73,8 +73,5 @@ public class StudentLoginController extends HttpServlet {
 
 	}
 
-//	public static void main(String[] args) {
-//		student_pwd
-//	}
 
 }

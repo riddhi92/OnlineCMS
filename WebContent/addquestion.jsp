@@ -1,5 +1,5 @@
 <%@page import="java.sql.ResultSet"%>
-<%@page import="db.DBConnection"%>
+<%@page import="db.DBConnection"  errorPage="error.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%!
@@ -93,7 +93,7 @@
 		  <span class="icon-bar"></span>
 		  <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="#">CMS(Online Exams)</a>
+		<a class="navbar-brand" href="index.jsp">ExamCMS</a>
 		<a class="navbar-brand">&gt;</a>
 		<a class="navbar-brand" href="#">Add Questions</a>
 	  </div>
@@ -241,7 +241,7 @@
 		</form>
 	</div>
 </div>
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/tooltip.js"></script>
 <script type="text/javascript" src="js/script.js"></script>

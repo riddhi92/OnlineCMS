@@ -89,7 +89,7 @@ public class HomeSettingController extends HttpServlet {
 
 		if (univerName == null || univerName.isEmpty() || aboutUniver == null
 				|| aboutUniver.isEmpty() || aboutUniver == null) {
-			response.sendRedirect("HomePageSetting.jsp?err=false");
+			response.sendRedirect("homepagesetting.jsp?err=false");
 		} else {
 			JSONObject obj = new JSONObject();
 			obj.put("UniversityName", univerName);

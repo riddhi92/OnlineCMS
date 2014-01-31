@@ -39,7 +39,7 @@ public class StudentRegCsv extends HttpServlet {
 				response.sendRedirect("dashboard.jsp?status=s_success");
 			}
 			else{
-				response.sendRedirect("createStudent.jsp?s=fail");
+				response.sendRedirect("createstudent.jsp?s=fail");
 			}
 		 }
         }

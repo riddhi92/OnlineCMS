@@ -42,7 +42,7 @@ public class TeacherRegController extends HttpServlet {
 			boolean flag=DBConnection.checkTeacherId(teacher_regId);
 			if(flag)
 			{
-				response.sendRedirect("teacher_registration.jsp?s=exists");
+				response.sendRedirect("teacherregistration.jsp?s=exists");
 				return;
 			}
 		}
@@ -67,7 +67,7 @@ public class TeacherRegController extends HttpServlet {
 		}
 		else{
 			
-			response.sendRedirect("teacher_registration.jsp?s=invalid");
+			response.sendRedirect("teacherregistration.jsp?s=invalid");
 		}
 	}
 

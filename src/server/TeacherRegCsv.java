@@ -44,7 +44,7 @@ public class TeacherRegCsv extends HttpServlet {
 				response.sendRedirect("dashboard.jsp?status=t_success");
 			}
 			else{
-				response.sendRedirect("teacher_registration.jsp?s=invalid");
+				response.sendRedirect("teacherregistration.jsp?s=invalid");
 			}
 		}
 	}

@@ -25,13 +25,13 @@ public class TeacherLoginController extends HttpServlet {
 		    
 		    Boolean validateResult=(Boolean)session.getAttribute("t_id");
 			if(validateResult !=null && validateResult==true){
-				response.sendRedirect("Login.jsp?t=false");
+				response.sendRedirect("login.jsp?t=false");
 				return;
 			}
 		    
 			if (teacher_id == null || teacher_id.isEmpty() || teacher_pwd == null
 					|| teacher_pwd.isEmpty()) {
-				response.sendRedirect("Login.jsp?t=false");
+				response.sendRedirect("login.jsp?t=false");
 			} else {
 				String sql = "select tid, tname, tpwd from teacher where tregid='"+teacher_id+"'";
 				ResultSet rs = DBConnection.selectQuery(sql);
@@ -46,11 +46,11 @@ public class TeacherLoginController extends HttpServlet {
 					}
 					
 					if(result){   
-						response.sendRedirect("AddQuestions.jsp");
+						response.sendRedirect("addquestion.jsp");
 						return;
 					}
 					else{
-						response.sendRedirect("Login.jsp?t=invalid");
+						response.sendRedirect("login.jsp?t=invalid");
 						return;
 					}
 				} catch (SQLException e) {

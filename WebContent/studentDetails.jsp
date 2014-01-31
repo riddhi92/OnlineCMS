@@ -34,6 +34,13 @@ function closeDiv()
 		}
 
 	}
+	
+	int id=(Integer)session.getAttribute("sId");
+	   
+
+	if(session.getAttribute("sId")==null){
+		response.sendRedirect("login.jsp?s=false");
+	}
 	String msg="";
 	if(request.getParameter("s") != null){
 		msg = request.getParameter("s");
@@ -62,11 +69,22 @@ function closeDiv()
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">CMS(online Exams)</a> <a
+			<a class="navbar-brand" href="#">ExamCMS</a> <a
 				class="navbar-brand">Student Account</a>
 		</div>
 
-
+ <div class="btn-group" style="float:right; padding-right:60px; margin-top:10px;">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="">
+    Student <span class="caret"></span>
+  </button>
+  <form action="Logout" method="post" id="logout">
+  	<input type="hidden" name="user" value="student" />
+  </form>
+  <ul class="dropdown-menu" role="menu" style="width:60px; ">
+    <li><a href="#">Edit Account</a></li>
+    <li><a href="#" onclick="logout.submit();">Logout</a></li>
+  </ul>
+</div>
 
 		</nav>
 
@@ -152,6 +170,6 @@ function closeDiv()
 
 		</div>
 </body>
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </html>

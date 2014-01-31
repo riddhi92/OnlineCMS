@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, db.DBConnection ;"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, db.DBConnection,java.sql.* ;"  errorPage="error.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login</title>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Student DashBoard</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +17,12 @@
 <%
 	
 	int id=(Integer)session.getAttribute("sId");
-	String pwd=(String)session.getAttribute("newPwd"); 
+   String pwd=(String)session.getAttribute("newPwd"); 
+
+if(session.getAttribute("sId")==null){
+	response.sendRedirect("login.jsp?s=false");
+}
+	
 	
 	ArrayList  arr=new ArrayList();
 	arr=DBConnection.populateStudentDetails(id);
@@ -84,7 +87,7 @@ function closeDiv()
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">CMS(online Exams)</a>
+    <a class="navbar-brand" href="#">ExamCMS</a>
     <a class="navbar-brand" href="#">Student Dashboard</a>
   </div>
   
@@ -118,10 +121,11 @@ else if(msg.equals("0"))
 	<%
 }
 } %>
-  <div style="margin-left:100px; width:810px;"> 
-  <ul class="nav nav-tabs" id="myTab" style=" width:400px; border:0px solid;">
+  <div style="margin:20px auto; width:810px;"> 
+  <ul class="nav nav-tabs" id="myTab" style=" border:0px solid;">
   <li class="active" style=" width:200px;"><a href="#home" data-toggle="tab" style="color:#000;">Profile</a></li>
-  <li style=" width:200px;"><a href="#profile" data-toggle="tab" style="color:#000;">Exam</a></li>
+  <li style=" width:200px;"><a href="#exam" data-toggle="tab" style="color:#000;">Exam</a></li>
+  <li style=" width:200px;"><a href="#result" data-toggle="tab" style="color:#000;">Result</a></li>
   </ul>
   
 <div class="tab-content" style="width:810px;height:390px;  border-radius:5px;">
@@ -274,15 +278,76 @@ else if(msg.equals("0"))
 			</div>
 
 	</div>
+	
 	</form>
-	<div class="tab-pane fade" id="profile" style="width:350px; height:211px; margin:10px auto; margin-left:35px;">
-      <div><h3><a style="color:#ffffff; " href="exam.jsp">Start Exam !!</a></h3></div>
+	<div class="tab-pane fade" id="exam" style="width:350px; height:211px; margin: auto; margin-left:5px; ">
+	 <div style="margin: 0px auto;  min-width: 850px; max-width: 850px; ">
+	   <div class="panel panel-default" style=" height:370px;">
+	    <div class="panel-heading">
+					<h3 class="panel-title">Available Exam</h3>
+				</div>
+      <div>
+      <table class="table table-hover"
+							style="background-color: #fff; border-radius: 3px;">
+							<thead>
+								<tr>
+									<th>Subject</th>
+									<th>Exam Date</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<% 
+			     String sql="select * from examinfo";
+				 ResultSet rs= DBConnection.getObject().selectQuery(sql); 
+				
+				
+				 while(rs.next())
+				 {
+					 String arr1[]= rs.getString("exam_date").split(" ");
+					 int exam_id=rs.getInt("exam_id");
+					 session.setAttribute("examId", exam_id);
+					 //System.out.println("exam_id"+exam_id);
+				  %>
+				              
+								<tr>
+									<td><%=rs.getString("subject") %></td>
+									<td><%=arr1[0]%></td>
+									<td><input type="button" class="btn btn-info" value="Start exam" onclick="window.top.location='startexam.jsp?examId=<%=exam_id %>';" /><td>
+								</tr>
+
+								<% 
+				}
+			 
+			  %>
+							</tbody>
+						</table>
+      
+      </div>
+      </div>
+      </div>
+      
+      
 </div>	
+
+<div class="tab-pane fade" id="result" style="width:350px; height:211px; margin: auto; margin-left:15px;">
+	 <div style="margin: 0px auto;  min-width: 850px; max-width: 850px; ">
+	   <div class="panel panel-default" style=" height:370px;">
+	    <div class="panel-heading">
+					<h3 class="panel-title"><%=arr.get(0)+" "+arr.get(1) %></h3>
+					
+		</div>
+
+              <div><a href="result.jsp">RESULT DISPLAY</a></div>
+      
+</div>	
+
+
 </div>
 </div>
 </body>
 
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script src="js/tab.js" type="text/javascript"></script>
 <%msg=""; %>

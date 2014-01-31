@@ -1,13 +1,12 @@
 <%@page import="sun.misc.Request"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Administrator Login</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Administrator Login</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -62,7 +61,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">CMS(Online Exams)</a>
+    <a class="navbar-brand" href="#">ExamCMS)</a>
 	<a class="navbar-brand" style="user-select:none;">&gt;</a>
 	<a class="navbar-brand" href="#" >Administrator Login</a>
   </div>
@@ -98,7 +97,7 @@
  </form>
  
 </div>
-<script src="https://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/tooltip.js"></script>
 <script type="text/javascript" src="js/script.js"></script>

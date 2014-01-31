@@ -48,7 +48,7 @@ function  getTotalQuestion(id)
 	Boolean validateResult = (Boolean) session
 			.getAttribute("login_success");
 	if (validateResult == null) {
-		response.sendRedirect("admin_login.jsp?s=false");
+		response.sendRedirect("adminlogin.jsp?s=false");
 
 	}
 	String admin_name = (String) session.getAttribute("admin_name");
@@ -79,7 +79,7 @@ function  getTotalQuestion(id)
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">CMS(online Exams)</a> <a
+			<a class="navbar-brand" href="dashboard.jsp">ExamCMS</a> <a
 				class="navbar-brand">Create Exam </a>
 		</div>
 
@@ -170,6 +170,6 @@ if(msg.equals("exam_fail"))
 	</div>
    </div>
 </body>
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </html>

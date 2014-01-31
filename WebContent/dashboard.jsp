@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>DashBoard</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -23,14 +23,14 @@ function closeDiv()
 
 Boolean validateResult=(Boolean)session.getAttribute("login_success");
 if(validateResult==null){
-	response.sendRedirect("admin_login.jsp?s=false");
+	response.sendRedirect("adminlogin.jsp?s=false");
 }
 String admin_name=(String)session.getAttribute("admin_name");
 String reg=request.getParameter("status");
 
 %>
-<body>
-<div id="back" style="width:100%; height:100%; position: fixed; z-index:1;">
+<body id="back">
+<div  style="width:100%; height:100%;  z-index:1;">
 
 <nav class="navbar navbar-default" role="navigation" >
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -41,7 +41,7 @@ String reg=request.getParameter("status");
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">CMS(online Exams)</a>
+    <a class="navbar-brand" href="#">ExamCMS</a>
 	
 	 <a class="navbar-brand" >Dashboard</a>
   </div>
@@ -90,10 +90,8 @@ else if(reg.equals("exam_success"))
 		  <a href="#" class="list-group-itemleft active">
 			DashBoard
 		  </a>
-		  <a href="HomePageSetting.jsp" class="list-group-itemleft">Home Page Settings</a>
-		  <a href="#" class="list-group-itemleft">Teachers Settings</a>
-		  <a href="#" class="list-group-itemleft">Students Settimgs</a>
-		  <a href="#" class="list-group-itemleft">sdfdsf</a>
+		  <a href="homepagesetting.jsp" class="list-group-itemleft">Home Page Settings</a>
+		  <a href="schedule.jsp" class="list-group-itemleft">Reschedule Exams</a>
 		</div>
 		
 	</div>
@@ -134,26 +132,40 @@ else if(reg.equals("exam_success"))
             <th>Exam Date</th>
             <th>Hardness Level</th>
 			<th>Venue</th>
+			<th>Result</th>
 		
           </tr>
         </thead>
 			  <tbody>
 				 <% 
+				 DBConnection obj= DBConnection.getObject();
 			     String sql="select * from examinfo";
-				 ResultSet rs= DBConnection.getObject().selectQuery(sql); 
+				 ResultSet rs= obj.selectQuery(sql); 
 				
 		        
 				 while(rs.next())
-				 {%>
+				 { String arr[]= rs.getString("exam_date").split(" ");
+				    int exam_id=rs.getInt("exam_id");
+				   	System.out.println("Exam ID : "+exam_id);
+				   	System.out.println("");
+				    String msg= obj.checkExamresult(exam_id); 
+				   
+				    	     
+				    		
+				 
+				 %>
 					  <tr>
 			            <td><%=rs.getString("subject") %></td>
-			            <td><%=rs.getString("exam_date")%></td>
+			            <td><%=arr[0]%></td>
 			            <td><%=rs.getString("hardness")%></td>
 			            <td><%=rs.getString("venue")%></td>
+			            <td><%=msg %></td>
+			           
 			           </tr>
 					 
 				<% 
 				}
+				 rs.close();
 			 
 			  %>
 			  </tbody>
@@ -166,19 +178,18 @@ else if(reg.equals("exam_success"))
 	
 	<div style="width:200px;display:inline-block; float:right">
 		<div class="list-group">
-		  <a href="teacher_registration.jsp" class="list-group-item ">
+		  <a href="teacherregistration.jsp" class="list-group-item ">
 			Create Teacher
 		  </a>
-		  <a href="createStudent.jsp" class="list-group-item">Create Student</a>
+		  <a href="createstudent.jsp" class="list-group-item">Create Student</a>
 		  <a href="createexam.jsp" class="list-group-item">Create Exam</a>
-		  <a href="#" class="list-group-item">Display Exam</a>
-		  <a href="#" class="list-group-item">Notification  <span class="badge">14</span></a>
+		 
 		</div>
 	</div>
 </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 </html>

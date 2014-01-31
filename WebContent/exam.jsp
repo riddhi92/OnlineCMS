@@ -8,11 +8,29 @@
 <%@ page import="java.util.Random" %>
 
 <%
-	int examId = 1;
-	int question[] = process.RandomQuestions.generate(examId); //<============ Till DB Connection error;
+	int id=(Integer)session.getAttribute("sId"); 
+	
+	if(session.getAttribute("sId")==null){
+		response.sendRedirect("login.jsp?s=false");
+	}
+	String eid = request.getParameter("examId");
+	int examId = Integer.parseInt(eid);
+	//int question[] = null;
+	ResultSet rs1 = DBConnection.selectQuery("select question from examinfo where exam_id="+eid); //<============ Till DB Connection error;
+	String que = "";
+	String strque[] = null;
+	if(rs1.next())
+	{
+		que = rs1.getString("question"); 
+	}
+	strque = que.split(",");
+	/* for(int i = 0; i < strque.length;i++)
+	{
+		question[i] = Integer.parseInt(strque[i]);
+	} */
+	int question[] = {1,2,3,4,5,6,7/* ,8,9,10,11,12,13,14,15,16 */};
 	session.setAttribute("maxquestions", question.length);
-	session.setAttribute("eid",examId);
-	//int question[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+	DBConnection.updateExamStatus(examId);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -213,8 +231,8 @@
 				</table>
 				<table class="examinfo" style="margin:0px auto; display:inline-block;">
 					<tr>
-						<td>ID</td><td>:</td><td>130840320004</td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
-						<td>TIMELEFT</td><td>:</td><td>-:--</td>
+						<td>ID</td><td>:</td><td><%=id %></td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
+						
 					</tr>
 				</table>
 		</div>
@@ -300,6 +318,7 @@
 					<tr>
 						<td><a href="" style="color:#ffffff;" target="_blank">Instructions</a></td><td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
 						<td><a href="" style="color:#ffffff;" target="_blank">Help</a></td>
+						<td><button onclick="window.top.location = 'examresponse';">Save & End Exam</button></td>
 					</tr>
 				</table>
 		</div>

@@ -12,8 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.QuestionData;
 
-import db.DBConnection;
-
 @WebServlet("/AddQuestionsHandler")
 public class AddQuestionsHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,7 +29,7 @@ public class AddQuestionsHandler extends HttpServlet {
 		HttpSession session= request.getSession();
 		Integer tid = (Integer)session.getAttribute("t_id");
 		if(tid == null){
-			response.sendRedirect("Login.jsp?t=false");
+			response.sendRedirect("login.jsp?t=false");
 			return;
 		}
         int teacherid = tid.intValue();   
@@ -78,20 +76,19 @@ public class AddQuestionsHandler extends HttpServlet {
 					path += "\\que_images\\"+qid+".jpg";
 					imgstatus = process.TextToImage.convert(que,path);
 					if(imgstatus){
-						response.sendRedirect("AddQuestions.jsp?stat=added");
+						response.sendRedirect("addquestion.jsp?stat=added");
 					}else{
-						DBConnection.deleteQuery("delete from qbank where statement='"+que+"'");
-						response.sendRedirect("AddQuestions.jsp?stat=failed");
+						response.sendRedirect("addquestion.jsp?stat=failed");
 					}
 				}else{
-					response.sendRedirect("AddQuestions.jsp?stat=failed");
+					response.sendRedirect("addquestion.jsp?stat=failed");
 				}
 			}else{
-				response.sendRedirect("AddQuestions.jsp?stat=error");
+				response.sendRedirect("qddquestion.jsp?stat=error");
 				return;
 			}
 		}else{
-			response.sendRedirect("AddQuestions.jsp?stat=error");
+			response.sendRedirect("addquestion.jsp?stat=error");
 			return;
 		}
 	}

@@ -1,6 +1,9 @@
 package server;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,8 +37,25 @@ public class CreateExamController extends HttpServlet {
 			
 		int result=DBConnection.insertExamInfo(Sub_name,totalque,hardness,exam_date,venue,result_date);
 		
+		
 		if(result==1)
 		{
+			
+			ResultSet rs=DBConnection.selectQuery("select max(exam_id) from examinfo");
+			int exam_id;
+			try {
+				if(rs.next())
+				{
+					 exam_id=rs.getInt(1);
+					 
+					  DBConnection.CreateTable(exam_id);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			response.sendRedirect("dashboard.jsp?status=exam_success");
 		}
 		else{
